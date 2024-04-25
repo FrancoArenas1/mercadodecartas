@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoDeCartas - Tu Tienda de Cartas para TCG</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span>Mercado</span><span class="highlight">De</span><span>Cartas</span>
+            </div>
+            <nav>
+                <div class="auth-buttons">
+                    <a href="iniciarsesion.html" class="btn">Iniciar Sesión</a>
+                    <a href="registrarse.html" class="btn">Registrarse</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="app">
+                
+            </div>
+            
+        </div>
+    </main>
+    
+    
+    <footer>
+        <div class="container">
+            <p>Derechos de autor © 2024 Mercado de cartas CL.</p>
+            <p><a href="#">Políticas y Condiciones de Uso</a></p>
+        </div>
+    </footer>
+
+ <script src="js/TcgService.js"></script>
+  <script src="js/TcgListComponent.js"></script>
+  <script>
+    // Crear una instancia del servicio TcgService
+    const tcgService = new TcgService();
+
+    // Crear una instancia del componente TcgListComponent e inyectar el servicio TcgService
+    const tcgListComponent = new TcgListComponent(tcgService);
+    console.log(tcgListComponent)
+    // Obtener la referencia al contenedor HTML
+    const appContainer = document.getElementById('app');
+
+    // Renderizar el componente TcgListComponent en el contenedor HTML
+    appContainer.innerHTML = `
+      <h2>Selecciona tu juego de cartas</h2>
+      <div class="card-buttons">
+        ${tcgListComponent.tcgService.games.map(game => `<a href="${game.url}" class="card-button ${game.name}"></a>`).join('')}
+      </div>
+        
+      
+    `;
+  </script>
+</body>
+</html>
