@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoDeCartas - Tu Tienda de Cartas para TCG</title>
+    <link rel="stylesheet" href="css/productos.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dTuXs1L9qegTZ2Ds4+Lz4tz+i4IjyPzCvBl6L5LuIU3GzlFWe0xe0iHz4+dfGwFscxQ43pUo4dXXfxmGsxKdLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span>Mercado</span><span class="highlight">De</span><span>Cartas</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar productos...">
+            </div>
+            <nav>
+                <div class="auth-buttons">
+                    <a href="#" class="btn"><i class="fas fa-shopping-cart"></i></a> <!-- Icono del carrito de compra -->
+                    <a href="iniciarsesion.html" class="btn">Iniciar Sesión</a>
+                    <a href="registrarse.html" class="btn">Registrarse</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="app">
+                
+            </div>
+            
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Derechos de autor © 2024 Tu Nombre o Nombre de tu Empresa.</p>
+            <p><a href="#">Políticas y Condiciones de Uso</a></p>
+        </div>
+    </footer>
+
+    <script src="js/ServiceProducto.js"></script>
+    <script src="js/ListProductos.js"></script>
+    <script src="https://kit.fontawesome.com/3c500e4696.js" crossorigin="anonymous"></script>
+    <script>
+        // Crear una instancia del servicio TcgService
+        const productos = new ServiceProducto();
+
+        // Crear una instancia del componente listProductos e inyectar el servicio TcgService
+        const listProductos = new ListProductos(productos);
+
+        // Obtener la referencia al contenedor HTML
+        const appContainer = document.getElementById('app');
+
+        // Renderizar el componente TcgListComponent en el contenedor HTML
+        appContainer.innerHTML = `
+            <h2>Productos</h2>
+            <div class="card-container">
+                ${listProductos.listProductos.productos.map(producto => `
+                    <div class="card">
+                        <div class="card-image" style="background-image: url('${producto.imagen}');"></div>
+                        <div class="card-info">
+                            <h3>${producto.name}</h3>
+                            <p><strong>Edición:</strong> ${producto.edition}</p>
+                            <p><strong>Valor:</strong> ${producto.value}</p>
+                            <p><strong>Dueño:</strong> ${producto.owner}</p>
+                            <p><strong>Estado:</strong> ${producto.status}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    </script>
+</body>
+</html>
